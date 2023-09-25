@@ -11,9 +11,10 @@ import {
 } from 'react-native';
 import {Colors} from '../../assets/colors';
 import {SearchIcon} from '../../assets/svgs';
+import MyTabs from '../navigation/TabNavigation';
 
 const backgroundImage = require('../../assets/images/ScreenBG.png');
-const Search = () => {
+const Search = ({navigation}) => {
   return (
     <ImageBackground
       source={backgroundImage}

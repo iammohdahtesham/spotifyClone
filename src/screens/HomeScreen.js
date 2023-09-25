@@ -9,7 +9,15 @@ import {
   View,
 } from 'react-native';
 import {Colors} from '../../assets/colors';
-import {RecentSVG, SettingsSVG, BellSVG} from '../../assets/svgs';
+import {
+  RecentSVG,
+  SettingsSVG,
+  BellSVG,
+  HomeIcon,
+  PlaylistIcon,
+  SearchIcon,
+} from '../../assets/svgs';
+import MyTabs from '../navigation/TabNavigation';
 
 const backgroundImage = require('../../assets/images/ScreenBG.png');
 const Home = () => {
@@ -73,6 +81,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     paddingRight: '2%',
+  },
+  bottomTabContainer: {
+    flex: 0.2,
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'space-around',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  tabText: {
+    paddingTop: 5,
+    color: Colors.dullWhite,
+    fontSize: 10,
+    fontWeight: '600',
+  },
+  tabIcons: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default Home;

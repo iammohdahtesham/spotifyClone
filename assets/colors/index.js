@@ -4,7 +4,7 @@ export const Colors = {
   spotify: '#4daf50',
   dullBlack: '#181818',
   gray: 'gray',
-  searchBlack: '#323232',
+  searchBlack: '#4c4c48',
   dullWhite: '#ababab',
   playerBar: '#211f1e',
 };

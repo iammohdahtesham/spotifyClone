@@ -3,15 +3,18 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Login from '../screens/LoginScreen';
+import Search from '../screens/SearchScreen';
+import Playlist from '../screens/PlaylistScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import MyTabs from './TabNavigation';
+import Home from '../screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigationManager() {
   return (
     <NavigationContainer>
-      <Stack.Navigator shifting={true} sceneAnimationType="shifting">
+      <Stack.Navigator shifting={false}>
         <Stack.Screen
           name="LogIn"
           component={Login}
@@ -20,7 +23,11 @@ export default function StackNavigationManager() {
         <Stack.Screen
           name="Home Page"
           component={MyTabs}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+            animationEnabled: false,
+            animationTypeForReplace: 'pop',
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

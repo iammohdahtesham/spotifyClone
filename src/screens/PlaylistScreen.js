@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import {
   LeftIcon,
@@ -38,6 +39,14 @@ const Playlist = ({navigation}) => {
   const [songIndex, setSongIndex] = useState(0);
   const playState = usePlaybackState();
   const progress = useProgress();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPlayerBarVisible, setIsPlayerBarVisible] = useState(false);
+
+  useEffect(() => {
+    if (State.Playing === playState) {
+      setIsPlayerBarVisible(true);
+    }
+  }, []);
 
   useEffect(() => {
     setupPlayer();
@@ -54,6 +63,7 @@ const Playlist = ({navigation}) => {
           Capability.SkipToNext,
           Capability.SkipToPrevious,
           Capability.Stop,
+          Capability.SeekTo,
         ],
 
         compactCapabilities: [Capability.Play, Capability.Pause],
@@ -69,7 +79,7 @@ const Playlist = ({navigation}) => {
         }
       }
     }
-  }, [playState, progress, songIndex]);
+  }, [progress]);
   return (
     <ImageBackground
       source={backgroundImage}
@@ -97,6 +107,7 @@ const Playlist = ({navigation}) => {
             <View style={styles.subContainerLeft}>
               <MusicIcon fill={'white'} />
               <Text style={styles.subHeading}>Chill-time Playlist</Text>
+              <Text>{Dimensions.get('window').height}</Text>
             </View>
             <View style={styles.subContainerRight}>
               <TouchableOpacity>
@@ -105,6 +116,7 @@ const Playlist = ({navigation}) => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={async () => {
+                  setIsPlayerBarVisible(true);
                   if (State.Playing === playState) {
                     await TrackPlayer.pause();
                   } else {
@@ -127,6 +139,7 @@ const Playlist = ({navigation}) => {
                 <TouchableOpacity
                   style={styles.listButton}
                   onPress={async () => {
+                    setIsPlayerBarVisible(true);
                     await TrackPlayer.pause();
                     await TrackPlayer.skip(index);
                     await TrackPlayer.play();
@@ -171,41 +184,60 @@ const Playlist = ({navigation}) => {
             }}
           />
         </ScrollView>
-        <View style={styles.playerBar}>
-          <View style={styles.playerBarLeft}>
-            <Image
-              source={{uri: SampleSongs[songIndex].artwork}}
-              style={styles.playerBarImage}
-            />
-            <View style={styles.playerBarText}>
-              <Text style={styles.playerBarSongTitle}>
-                {SampleSongs[songIndex].title}
-              </Text>
-              <Text style={styles.playerBarSongAuthor}>
-                {SampleSongs[songIndex].artist}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.playerBarRight}>
+        {isPlayerBarVisible && (
+          <View style={styles.playerBarContainer}>
             <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={async () => {
-                if (State.Playing === playState) {
-                  await TrackPlayer.pause();
-                } else {
-                  await TrackPlayer.skip(songIndex);
-                  await TrackPlayer.play();
-                }
-              }}>
-              {State.Playing === playState ? (
-                <WhitePauseIcon height={40} width={42} fill={Colors.white} />
-              ) : (
-                <WhitePlayIcon height={40} width={40} fill={Colors.white} />
-              )}
+              style={styles.playerBar}
+              activeOpacity={1}
+              onPress={() => setIsVisible(true)}>
+              <View style={styles.playerBarLeft}>
+                <Image
+                  source={{uri: SampleSongs[songIndex].artwork}}
+                  style={styles.playerBarImage}
+                />
+                <View style={styles.playerBarText}>
+                  <Text style={styles.playerBarSongTitle}>
+                    {SampleSongs[songIndex].title}
+                  </Text>
+                  <Text style={styles.playerBarSongAuthor}>
+                    {SampleSongs[songIndex].artist}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.playerBarRight}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={async () => {
+                    if (State.Playing === playState) {
+                      await TrackPlayer.pause();
+                    } else {
+                      await TrackPlayer.skip(songIndex);
+                      await TrackPlayer.play();
+                    }
+                  }}>
+                  {State.Playing === playState ? (
+                    <WhitePauseIcon
+                      height={40}
+                      width={42}
+                      fill={Colors.white}
+                    />
+                  ) : (
+                    <WhitePlayIcon height={40} width={40} fill={Colors.white} />
+                  )}
+                </TouchableOpacity>
+              </View>
             </TouchableOpacity>
           </View>
-        </View>
-        <Player />
+        )}
+        <Player
+          SampleSongs={SampleSongs}
+          songIndex={songIndex}
+          setSongIndex={setSongIndex}
+          isVisible={isVisible}
+          progress={progress}
+          playState={playState}
+          setIsVisible={setIsVisible}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
@@ -232,7 +264,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   imageStyle: {
-    height: 320,
+    height:
+      Dimensions.get('window').height < 700
+        ? Dimensions.get('window').height * 0.46
+        : Dimensions.get('window').height * 0.4,
     width: '85%',
     alignSelf: 'center',
     marginTop: '5%',
@@ -310,18 +345,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'flex-end',
   },
+  playerBarContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   playerBar: {
     flexDirection: 'row',
     position: 'absolute',
     width: '96%',
-    height: 40,
+    height: 60,
     backgroundColor: Colors.playerBar,
-    marginTop: '138%',
     borderRadius: 5,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingRight: '2%',
+    marginBottom: 80,
   },
   playerBarLeft: {
     flexDirection: 'row',
@@ -348,7 +387,5 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: Colors.dullWhite,
   },
-  playerBarRight: {
-    
-  },
+  playerBarRight: {},
 });

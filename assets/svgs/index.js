@@ -14,6 +14,11 @@ import PauseIcon from './pause.svg';
 import WhitePlayIcon from './play-fill.svg';
 import WhitePauseIcon from './pause-fill.svg';
 import DownIcon from './down.svg';
+import OptionsIcon from './threeDots.svg';
+import NextIcon from './next.svg';
+import PreviousIcon from './previous.svg';
+import HomeIcon from './home.svg';
+import PlaylistIcon from './playlist.svg';
 
 export {
   SpotifySVG,
@@ -32,4 +37,9 @@ export {
   WhitePauseIcon,
   WhitePlayIcon,
   DownIcon,
+  OptionsIcon,
+  NextIcon,
+  PreviousIcon,
+  HomeIcon,
+  PlaylistIcon,
 };
