@@ -12,14 +12,14 @@ import {getAuthorization} from '../redux/Action';
 import {SpotifySVG, GoogleSVG, FacebookSVG, PhoneSVG} from '../../assets/svgs';
 
 const Login = ({navigation}) => {
-  const dispatch = useDispatch();
-  const tokenId = useSelector(state => state.fetchAuth.data);
+  // const dispatch = useDispatch();
+  // const tokenId = useSelector(state => state.fetchAuth.data);
 
-  useEffect(() => {
-    dispatch(getAuthorization());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAuthorization());
+  // }, []);
 
-  console.log(tokenId);
+  // console.log(tokenId);
 
   return (
     <SafeAreaView style={styles.main}>

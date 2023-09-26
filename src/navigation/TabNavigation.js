@@ -1,9 +1,12 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/HomeScreen';
 import Search from '../screens/SearchScreen';
 import Playlist from '../screens/PlaylistScreen';
+import {Colors} from '../../assets/colors';
+import {HomeFillIcon, HomeIcon} from '../../assets/svgs';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,44 +14,72 @@ function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
-        showicon: true,
-        showlabel: false,
-        lazyload: true,
         tabBarStyle: {
-          backgroundcolor: 'rgba(0,0,0,0.5)',
-          bordertopwidth: 0,
-          elevation: 15,
-          height: 50,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          shadowOpacity: 2,
+          shadowRadius: 2,
+          shadowOffset: {
+            width: 0,
+            height: -4,
+          },
+          borderTopWidth: 0,
+          height: '8%',
         },
       }}>
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
+          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarActiveTintColor: Colors.white,
           headerShown: false,
-          showicon: true,
-          showlabel: false,
-          lazyload: true,
-          style: {
-            backgroundcolor: 'black',
-            bordertopwidth: 0,
-            position: 'absolute',
-            left: 50,
-            right: 50,
-            bottom: 20,
-            height: 10,
-          },
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <Icon name="home" color={Colors.white} size={25} />
+            ) : (
+              <Icon name="home-outline" color={Colors.gray} size={25} />
+            ),
         }}
       />
       <Tab.Screen
         name="Search"
         component={Search}
-        options={{headerShown: false}}
+        options={{
+          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarActiveTintColor: Colors.white,
+          headerShown: false,
+          // tabBarLabel: ({focused}) =>
+          //   focused ? (color: Colors.dullWhite) : (color: Colors.white),
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <Icon name="search" color={Colors.white} size={25} />
+            ) : (
+              <Icon name="search-outline" color={Colors.gray} size={25} />
+            ),
+        }}
       />
       <Tab.Screen
         name="Playlist"
         component={Playlist}
-        options={{headerShown: false}}
+        options={{
+          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarActiveTintColor: Colors.white,
+          headerShown: false,
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <Icon name="musical-notes" color={Colors.white} size={25} />
+            ) : (
+              <Icon
+                name="musical-notes-outline"
+                color={Colors.gray}
+                size={25}
+              />
+            ),
+        }}
       />
       {/* <Tab.Screen name="Premium" component={} /> */}
     </Tab.Navigator>

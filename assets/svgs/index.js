@@ -19,6 +19,7 @@ import NextIcon from './next.svg';
 import PreviousIcon from './previous.svg';
 import HomeIcon from './home.svg';
 import PlaylistIcon from './playlist.svg';
+import HomeFillIcon from './homeFill.svg';
 
 export {
   SpotifySVG,
@@ -42,4 +43,5 @@ export {
   PreviousIcon,
   HomeIcon,
   PlaylistIcon,
+  HomeFillIcon,
 };

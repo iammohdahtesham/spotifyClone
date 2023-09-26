@@ -26,15 +26,7 @@ import StackNavigationManager from './src/navigation/StackNavigation';
 
 const App = () => {
   useEffect(() => {
-    // const ac = new AbortController();
-
-    // setTimeout(() => {
     SplashScreen.hide();
-    // }, 1000);
-
-    // return function cleanup() {
-    //   ac.abort();
-    // };
   }, []);
   return (
     <Provider store={store}>

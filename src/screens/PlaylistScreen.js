@@ -11,6 +11,7 @@ import {
   TextInput,
   FlatList,
   Dimensions,
+  Platform,
 } from 'react-native';
 import {
   LeftIcon,
@@ -107,7 +108,6 @@ const Playlist = ({navigation}) => {
             <View style={styles.subContainerLeft}>
               <MusicIcon fill={'white'} />
               <Text style={styles.subHeading}>Chill-time Playlist</Text>
-              <Text>{Dimensions.get('window').height}</Text>
             </View>
             <View style={styles.subContainerRight}>
               <TouchableOpacity>
@@ -266,9 +266,9 @@ const styles = StyleSheet.create({
   imageStyle: {
     height:
       Dimensions.get('window').height < 700
-        ? Dimensions.get('window').height * 0.46
-        : Dimensions.get('window').height * 0.4,
-    width: '85%',
+        ? Dimensions.get('window').height * 0.5
+        : Dimensions.get('window').height * 0.42,
+    width: '90%',
     alignSelf: 'center',
     marginTop: '5%',
     borderRadius: 5,
@@ -348,11 +348,17 @@ const styles = StyleSheet.create({
   playerBarContainer: {
     flex: 1,
     justifyContent: 'flex-end',
+    bottom:
+      Dimensions.get('window').height < 700
+        ? Dimensions.get('window').height * 0.085
+        : Platform.OS === 'android'
+        ? Dimensions.get('window').height * 0.085
+        : Dimensions.get('window').height * 0.048,
   },
   playerBar: {
     flexDirection: 'row',
     position: 'absolute',
-    width: '96%',
+    width: '98%',
     height: 60,
     backgroundColor: Colors.playerBar,
     borderRadius: 5,

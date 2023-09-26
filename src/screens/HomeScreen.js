@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 import {Colors} from '../../assets/colors';
 import {
@@ -20,6 +21,15 @@ import {
 import MyTabs from '../navigation/TabNavigation';
 
 const backgroundImage = require('../../assets/images/ScreenBG.png');
+function timeOfDay() {
+  let hour = new Date().getHours();
+  return hour >= 4 && hour <= 11
+    ? 'morning'
+    : hour >= 12 && hour <= 16
+    ? 'afternoon'
+    : 'evening';
+}
+
 const Home = () => {
   return (
     <ImageBackground
@@ -30,13 +40,13 @@ const Home = () => {
         <ScrollView>
           <View style={styles.headingContainer}>
             <View style={styles.headerText}>
-              <Text style={styles.heading}>Made for you</Text>
+              <Text style={styles.heading}>Good {timeOfDay()} </Text>
             </View>
 
             <View style={styles.headerIcons}>
-              <BellSVG color={Colors.white} />
-              <RecentSVG color={Colors.white} />
-              <SettingsSVG color={Colors.white} />
+              <BellSVG color={Colors.white} height={30} width={30} />
+              <RecentSVG color={Colors.white} height={30} width={30} />
+              <SettingsSVG color={Colors.white} height={30} width={30} />
             </View>
           </View>
 
@@ -61,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   heading: {
-    fontSize: 26,
+    fontSize: Dimensions.get('window').width < 400 ? 22 : 26,
     color: Colors.white,
     fontWeight: '700',
   },
@@ -79,8 +89,8 @@ const styles = StyleSheet.create({
   headerIcons: {
     flexDirection: 'row',
     flex: 1,
-    justifyContent: 'space-around',
-    paddingRight: '2%',
+    justifyContent: 'space-evenly',
+    paddingLeft: '6%',
   },
   bottomTabContainer: {
     flex: 0.2,
