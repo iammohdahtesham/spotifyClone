@@ -1,6 +1,10 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import {
   SafeAreaView,
   StyleSheet,
   Text,
@@ -42,7 +46,32 @@ const Login = ({navigation}) => {
 
       <View style={styles.buttonContainer}>
         <GoogleSVG height={28} width={28} />
-        <TouchableOpacity style={styles.logInButton} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.logInButton}
+          activeOpacity={0.8}
+          onPress={() => {
+            GoogleSignin.configure({
+              androidClientId:
+                '745372800826-rkg4g0c7jvnmdc78vufguild28u7t4uc.apps.googleusercontent.com',
+              iosClientId:
+                '745372800826-ui7ttugqh0uhtmgu6hbguq0l4eo76u4b.apps.googleusercontent.com',
+            });
+            GoogleSignin.hasPlayServices()
+              .then(hasPlayService => {
+                if (hasPlayService) {
+                  GoogleSignin.signIn()
+                    .then(userInfo => {
+                      console.log(JSON.stringify(userInfo));
+                    })
+                    .catch(e => {
+                      console.log('ERROR IS: ' + JSON.stringify(e));
+                    });
+                }
+              })
+              .catch(e => {
+                console.log('ERROR IS: ' + JSON.stringify(e));
+              });
+          }}>
           <Text style={styles.logInText}>Continue with Google</Text>
         </TouchableOpacity>
       </View>

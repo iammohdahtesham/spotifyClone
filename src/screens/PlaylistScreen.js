@@ -350,10 +350,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     bottom:
       Dimensions.get('window').height < 700
-        ? Dimensions.get('window').height * 0.085
+        ? Dimensions.get('window').height * 0.09
         : Platform.OS === 'android'
-        ? Dimensions.get('window').height * 0.085
-        : Dimensions.get('window').height * 0.048,
+        ? Dimensions.get('window').height * 0.09
+        : Dimensions.get('window').height * 0.05,
   },
   playerBar: {
     flexDirection: 'row',

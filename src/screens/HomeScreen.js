@@ -19,6 +19,7 @@ import {
   SearchIcon,
 } from '../../assets/svgs';
 import MyTabs from '../navigation/TabNavigation';
+import {useRoute} from '@react-navigation/native';
 
 const backgroundImage = require('../../assets/images/ScreenBG.png');
 function timeOfDay() {
@@ -40,7 +41,7 @@ const Home = () => {
         <ScrollView>
           <View style={styles.headingContainer}>
             <View style={styles.headerText}>
-              <Text style={styles.heading}>Good {timeOfDay()} </Text>
+              <Text style={styles.heading}>Good {timeOfDay()}</Text>
             </View>
 
             <View style={styles.headerIcons}>

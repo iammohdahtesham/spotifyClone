@@ -2,6 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import "RNSplashScreen.h"
+#import <GoogleSignIn/GIDSignIn.h>
 
 @implementation AppDelegate
 

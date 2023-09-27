@@ -20,21 +20,26 @@ function MyTabs() {
           bottom: 0,
           left: 0,
           right: 0,
-          shadowOpacity: 2,
-          shadowRadius: 2,
+          shadowOpacity: 0,
+          shadowRadius: 0,
           shadowOffset: {
-            width: 0,
+            width: 1,
             height: -4,
           },
-          borderTopWidth: 0,
-          height: '8%',
+          borderTopWidth: -5,
+          height: '9%',
+          elevation: 0.1,
         },
       }}>
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '400',
+            marginBottom: '5%',
+          },
           tabBarActiveTintColor: Colors.white,
           headerShown: false,
           tabBarIcon: ({focused}) =>
@@ -49,7 +54,11 @@ function MyTabs() {
         name="Search"
         component={Search}
         options={{
-          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '400',
+            marginBottom: '5%',
+          },
           tabBarActiveTintColor: Colors.white,
           headerShown: false,
           // tabBarLabel: ({focused}) =>
@@ -66,7 +75,11 @@ function MyTabs() {
         name="Playlist"
         component={Playlist}
         options={{
-          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '400',
+            marginBottom: '5%',
+          },
           tabBarActiveTintColor: Colors.white,
           headerShown: false,
           tabBarIcon: ({focused}) =>
