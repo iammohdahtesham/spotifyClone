@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
 import {
   GoogleSignin,
   statusCodes,
@@ -16,6 +17,7 @@ import {getAuthorization} from '../redux/Action';
 import {SpotifySVG, GoogleSVG, FacebookSVG, PhoneSVG} from '../../assets/svgs';
 
 const Login = ({navigation}) => {
+  const [token, setToken] = useState('');
   // const dispatch = useDispatch();
   // const tokenId = useSelector(state => state.fetchAuth.data);
 
@@ -24,6 +26,34 @@ const Login = ({navigation}) => {
   // }, []);
 
   // console.log(tokenId);
+  const qs = require('qs');
+  const data = qs.stringify({
+    grant_type: 'client_credentials',
+    client_id: '5a1fe97becfa4f53869a4c1037f41940',
+    client_secret: 'd7ea3348df0646798d405b8c2df47c56',
+  });
+
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'https://accounts.spotify.com/api/token',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    data: data,
+  };
+
+  useEffect(() => {
+    axios
+      .request(config)
+      .then(response => {
+        console.log(JSON.stringify(response.data));
+        setToken(response.data.access_token);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -87,7 +117,7 @@ const Login = ({navigation}) => {
         <TouchableOpacity
           style={styles.logInButton}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Home Page')}>
+          onPress={() => navigation.navigate('Home Page', {token: token})}>
           <Text style={styles.logInText}>Skip</Text>
         </TouchableOpacity>
       </View>

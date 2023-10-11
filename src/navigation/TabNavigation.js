@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function MyTabs(token) {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -33,7 +33,7 @@ function MyTabs() {
       }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        children={() => <Home token={token} />}
         options={{
           tabBarLabelStyle: {
             fontSize: 12,
@@ -52,7 +52,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Search"
-        component={Search}
+        children={() => <Search token={token} />}
         options={{
           tabBarLabelStyle: {
             fontSize: 12,

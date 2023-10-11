@@ -1,5 +1,21 @@
 import axios from 'axios';
 
+const qs = require('qs');
+const data = qs.stringify({
+  grant_type: 'client_credentials',
+  client_id: '5a1fe97becfa4f53869a4c1037f41940',
+  client_secret: 'd7ea3348df0646798d405b8c2df47c56',
+});
+
+let config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://accounts.spotify.com/api/token',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  data: data,
+};
 export const getAuthorization = () => {
   //API hit
   return async dispatch => {
