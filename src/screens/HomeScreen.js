@@ -11,18 +11,12 @@ import {
   Dimensions,
   Platform,
   FlatList,
+  Image,
+  Pressable,
 } from 'react-native';
 import {Colors} from '../../assets/colors';
-import {
-  RecentSVG,
-  SettingsSVG,
-  BellSVG,
-  HomeIcon,
-  PlaylistIcon,
-  SearchIcon,
-} from '../../assets/svgs';
-import MyTabs from '../navigation/TabNavigation';
-import {useRoute} from '@react-navigation/native';
+import {RecentSVG, SettingsSVG, BellSVG} from '../../assets/svgs';
+import {SampleSongs} from '../../assets/songs/SampleSongs';
 
 const backgroundImage = require('../../assets/images/ScreenBG.png');
 function timeOfDay() {
@@ -34,23 +28,8 @@ function timeOfDay() {
     : 'evening';
 }
 
-const ListItem = ({item}) => {
-  return (
-    <View style={styles.listContainer}>
-      <TouchableOpacity style={styles.listItem}>
-        <ImageBackground
-          source={{uri: item.icons[0].url}}
-          borderRadius={5}
-          style={styles.listImage}>
-          <Text style={styles.listText}>{item.name}</Text>
-        </ImageBackground>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 const Home = ({token}) => {
-  const [data, setData] = useState([]);
+  const [newData, setData] = useState([]);
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
@@ -64,6 +43,7 @@ const Home = ({token}) => {
       .request(config)
       .then(response => {
         setData(response.data.categories.items);
+        console.log(newData);
       })
       .catch(error => {
         console.log(error);
@@ -75,40 +55,84 @@ const Home = ({token}) => {
       source={backgroundImage}
       resizeMode="cover"
       style={styles.bg}>
-      <SafeAreaView style={styles.main}>
-        <View style={styles.headingContainer}>
-          <View style={styles.headerText}>
-            <Text style={styles.heading}>Good {timeOfDay()}</Text>
+      <ScrollView>
+        <SafeAreaView style={styles.main}>
+          <View style={styles.headingContainer}>
+            <View style={styles.headerText}>
+              <Text style={styles.heading}>Good {timeOfDay()}</Text>
+            </View>
+            <View style={styles.headerIcons}>
+              <BellSVG color={Colors.white} height={30} width={30} />
+              <RecentSVG color={Colors.white} height={30} width={30} />
+              <SettingsSVG color={Colors.white} height={30} width={30} />
+            </View>
           </View>
-          <View style={styles.headerIcons}>
-            <BellSVG color={Colors.white} height={30} width={30} />
-            <RecentSVG color={Colors.white} height={30} width={30} />
-            <SettingsSVG color={Colors.white} height={30} width={30} />
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.buttons}>
+              <Text>Press here</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttons}>
+              <Text>Press here</Text>
+            </TouchableOpacity>
           </View>
-        </View>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.buttons}>
+              <Text>Press here</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttons}>
+              <Text>Press here</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.buttons}>
+              <Text>Press here</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttons}>
+              <Text>Press here</Text>
+            </TouchableOpacity>
+          </View>
 
-        <FlatList
-          pagingEnabled
-          horizontal
-          initialNumToRender={10}
-          maxToRenderPerBatch={2}
-          windowSize={1}
-          showsHorizontalScrollIndicator={false}
-          data={data}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => {
-            return <ListItem item={item} />;
-          }}
-        />
-
-        <View style={styles.headingContainer}>
-          <Text style={styles.heading}>Trending Now</Text>
-        </View>
-
-        <View style={styles.headingContainer}>
-          <Text style={styles.heading}>Top picks for you</Text>
-        </View>
-      </SafeAreaView>
+          <View style={styles.headingContainer}>
+            <Text style={styles.heading}>Trending Now</Text>
+          </View>
+          <FlatList
+            horizontal
+            inverted
+            data={newData}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => {
+              return (
+                <View style={styles.listContainer}>
+                  <TouchableOpacity>
+                    <ImageBackground
+                      source={{uri: item.icons[0].url}}
+                      borderRadius={5}
+                      style={styles.listImage}
+                    />
+                  </TouchableOpacity>
+                </View>
+              );
+            }}
+          />
+          <View style={styles.headingContainer}>
+            <Text style={styles.heading}>Top picks for you</Text>
+          </View>
+          <FlatList
+            horizontal
+            data={SampleSongs}
+            renderItem={({item, index}) => {
+              return (
+                <TouchableOpacity style={styles.trendingSection}>
+                  <Image
+                    source={{uri: item.artwork}}
+                    style={styles.listImage}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </SafeAreaView>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -159,16 +183,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonsContainer: {
+    marginTop: 10,
+    flexDirection: 'row',
+    marginHorizontal: '1%',
+    justifyContent: 'space-evenly',
+    height: Dimensions.get('screen').height * 0.07,
+  },
+  buttons: {
+    width: '45%',
+    height: '100%',
+    borderRadius: 5,
+    justifyContent: 'center',
+    button: 'center',
+    backgroundColor: Colors.button,
+  },
+  trendingSection: {
+    marginLeft: Dimensions.get('screen').width * 0.03,
+  },
   listContainer: {
     flex: 0.5,
     alignItems: 'center',
   },
-  listItem: {
-    height: 100,
-    width: '88%',
-    backgroundColor: 'brown',
-    marginVertical: '5%',
-    borderRadius: 5,
+  listImage: {
+    height: Dimensions.get('screen').height * 0.19,
+    width: Dimensions.get('screen').width * 0.34,
+    borderRadius: 3,
+    margin: Dimensions.get('screen').width * 0.02,
   },
   listText: {
     color: Colors.white,
@@ -177,10 +218,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     alignContent: 'flex-end',
-  },
-  listImage: {
-    height: '100%',
-    width: '100%',
   },
 });
 export default Home;

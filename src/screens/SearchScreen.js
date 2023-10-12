@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   listItem: {
     height: 100,
     width: '88%',
-    backgroundColor: 'brown',
     marginVertical: '5%',
     borderRadius: 5,
   },

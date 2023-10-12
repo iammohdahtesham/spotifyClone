@@ -7,4 +7,5 @@ export const Colors = {
   searchBlack: '#4c4c48',
   dullWhite: '#ababab',
   playerBar: '#211f1e',
+  button: '#5b554a',
 };
