@@ -207,7 +207,10 @@ const styles = StyleSheet.create({
   },
   listImage: {
     height: Dimensions.get('screen').height * 0.19,
-    width: Dimensions.get('screen').width * 0.34,
+    width:
+      Platform.OS != 'android'
+        ? Dimensions.get('screen').width * 0.34
+        : Dimensions.get('screen').width * 0.43,
     borderRadius: 3,
     margin: Dimensions.get('screen').width * 0.02,
   },
