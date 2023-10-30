@@ -5,12 +5,11 @@ import Home from '../screens/HomeScreen';
 import Search from '../screens/SearchScreen';
 import Playlist from '../screens/PlaylistScreen';
 import {Colors} from '../../assets/colors';
-import {HomeFillIcon, HomeIcon} from '../../assets/svgs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function MyTabs(token) {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -20,21 +19,26 @@ function MyTabs() {
           bottom: 0,
           left: 0,
           right: 0,
-          shadowOpacity: 2,
-          shadowRadius: 2,
+          shadowOpacity: 0,
+          shadowRadius: 0,
           shadowOffset: {
-            width: 0,
+            width: 1,
             height: -4,
           },
-          borderTopWidth: 0,
-          height: '8%',
+          borderTopWidth: -5,
+          height: '9%',
+          elevation: 0.1,
         },
       }}>
       <Tab.Screen
         name="Home"
-        component={Home}
+        children={() => <Home token={token} />}
         options={{
-          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '400',
+            marginBottom: '5%',
+          },
           tabBarActiveTintColor: Colors.white,
           headerShown: false,
           tabBarIcon: ({focused}) =>
@@ -47,9 +51,13 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Search"
-        component={Search}
+        children={() => <Search token={token} />}
         options={{
-          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '400',
+            marginBottom: '5%',
+          },
           tabBarActiveTintColor: Colors.white,
           headerShown: false,
           // tabBarLabel: ({focused}) =>
@@ -66,7 +74,11 @@ function MyTabs() {
         name="Playlist"
         component={Playlist}
         options={{
-          tabBarLabelStyle: {fontSize: 12, fontWeight: '400'},
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '400',
+            marginBottom: '5%',
+          },
           tabBarActiveTintColor: Colors.white,
           headerShown: false,
           tabBarIcon: ({focused}) =>

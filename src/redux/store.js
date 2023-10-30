@@ -5,8 +5,6 @@ import {configureStore} from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
   fetchAuth: AuthReducer,
-  // fetchSingleUserData: userReducer,
-  // fetchAddressData: addressReducer,
 });
 
 export default configureStore({

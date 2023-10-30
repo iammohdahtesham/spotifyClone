@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import {
   Text,
   View,
@@ -42,6 +43,28 @@ const Playlist = ({navigation}) => {
   const progress = useProgress();
   const [isVisible, setIsVisible] = useState(false);
   const [isPlayerBarVisible, setIsPlayerBarVisible] = useState(false);
+
+  let config = {
+    method: 'get',
+    maxBodyLength: 2,
+    url: 'https://api.spotify.com/v1/playlists/4n0MZ8Kix8frGO3C1LF1gX?market=IN',
+    headers: {
+      Authorization:
+        'Bearer BQCnRzuN8g1kh6C3SXoinIT_JTPzUremOSTUqulZ2dLqkBhmnwdj7Kqftlndy50b2uroJtqLB1rQMT5Iwr0wEU7tg3MP1eDZ0Z9sdcVRDQHrTnnbi0o',
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .request(config)
+      .then(response => {
+        console.log('newwwwwwwwwwwwwwwwwww');
+        console.log(JSON.stringify(response.data.tracks.items));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     if (State.Playing === playState) {
@@ -350,10 +373,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     bottom:
       Dimensions.get('window').height < 700
-        ? Dimensions.get('window').height * 0.085
+        ? Dimensions.get('window').height * 0.09
         : Platform.OS === 'android'
-        ? Dimensions.get('window').height * 0.085
-        : Dimensions.get('window').height * 0.048,
+        ? Dimensions.get('window').height * 0.09
+        : Dimensions.get('window').height * 0.05,
   },
   playerBar: {
     flexDirection: 'row',

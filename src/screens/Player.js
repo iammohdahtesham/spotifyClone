@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  StatusBar,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -12,7 +11,6 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
-import LinearGradient from 'react-native-linear-gradient';
 import Slider from '@react-native-community/slider';
 import TrackPlayer, {State} from 'react-native-track-player';
 import {
@@ -23,7 +21,6 @@ import {
   PlayIcon,
   PreviousIcon,
 } from '../../assets/svgs';
-import {Line} from 'react-native-svg';
 import {Colors} from '../../assets/colors';
 const backgroundImage = require('../../assets/images/playerbg.png');
 
@@ -37,6 +34,7 @@ const Player = ({
   setSongIndex,
 }) => {
   const format = seconds => {
+    // eslint-disable-next-line radix
     let mins = parseInt(seconds / 60)
       .toString()
       .padStart(2, '0');
@@ -44,7 +42,6 @@ const Player = ({
     return `${mins}:${secs}`;
   };
 
-  //   const [currentIndex, setCurrentIndex] = useState(songIndex);
   return (
     <Modal isVisible={isVisible} style={styles.modal}>
       <ImageBackground
