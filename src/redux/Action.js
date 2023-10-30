@@ -7,10 +7,11 @@ const data = qs.stringify({
   client_secret: 'd7ea3348df0646798d405b8c2df47c56',
 });
 
+const baseUrl = 'https://accounts.spotify.com/api/';
 let config = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'https://accounts.spotify.com/api/token',
+  url: baseUrl + 'token',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
@@ -19,23 +20,19 @@ let config = {
 export const getAuthorization = () => {
   //API hit
   return async dispatch => {
-    const response = await axios.post(
-      'https://accounts.spotify.com/api/token',
-      new URLSearchParams({
-        grant_type: 'client_credentials',
-        client_id: '5a1fe97becfa4f53869a4c1037f41940',
-        client_secret: 'd7ea3348df0646798d405b8c2df47c56',
-      }),
-    );
-    try {
-      const token = response.data;
-      dispatch({
-        type: 'getAuthorization',
-        data: token,
+    axios
+      .request(config)
+      .then(response => {
+        console.log(JSON.stringify(response.data));
+        const token = response.data;
+        dispatch({
+          type: 'getAuthorization',
+          data: token,
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
-    } catch {
-      err => console.log(err);
-    }
   };
 };
 

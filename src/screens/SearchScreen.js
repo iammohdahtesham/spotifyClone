@@ -10,17 +10,14 @@ import {
   View,
   ImageBackground,
   FlatList,
-  Image,
-  Platform,
+  Dimensions,
 } from 'react-native';
 import {Colors} from '../../assets/colors';
 import {SearchIcon} from '../../assets/svgs';
-import MyTabs from '../navigation/TabNavigation';
 
 const backgroundImage = require('../../assets/images/ScreenBG.png');
 const Search = ({token}) => {
   const [data, setData] = useState([]);
-  console.log(JSON.stringify(token.route.params.token));
   let config = {
     method: 'get',
     maxBodyLength: Infinity,
@@ -122,22 +119,23 @@ const styles = StyleSheet.create({
     marginHorizontal: '3%',
   },
   listContainer: {
-    flex: 0.5,
+    flex: 1,
     alignItems: 'center',
   },
   listItem: {
-    height: 100,
-    width: '88%',
-    marginVertical: '5%',
+    flex: 1,
+    height: Dimensions.get('screen').height * 0.15,
+    width: Dimensions.get('screen').width * 0.46,
+    marginVertical: '3%',
     borderRadius: 5,
   },
   listText: {
     color: Colors.white,
-    marginTop: Platform.OS === 'android' ? '41%' : '45%',
+    marginTop: Dimensions.get('screen').height * 0.112,
     fontSize: 16,
     fontWeight: '700',
     textAlign: 'center',
-    alignContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   listImage: {
     height: '100%',

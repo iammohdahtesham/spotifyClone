@@ -5,7 +5,6 @@ import Home from '../screens/HomeScreen';
 import Search from '../screens/SearchScreen';
 import Playlist from '../screens/PlaylistScreen';
 import {Colors} from '../../assets/colors';
-import {HomeFillIcon, HomeIcon} from '../../assets/svgs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();

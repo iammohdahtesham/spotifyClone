@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,13 +15,12 @@ import {SpotifySVG, GoogleSVG, FacebookSVG, PhoneSVG} from '../../assets/svgs';
 const Login = ({navigation}) => {
   const [token, setToken] = useState('');
   // const dispatch = useDispatch();
-  // const tokenId = useSelector(state => state.fetchAuth.data);
+  // setToken(useSelector(state => state.fetchAuth.data));
 
   // useEffect(() => {
   //   dispatch(getAuthorization());
-  // }, []);
+  // },[]);
 
-  // console.log(tokenId);
   const qs = require('qs');
   const data = qs.stringify({
     grant_type: 'client_credentials',

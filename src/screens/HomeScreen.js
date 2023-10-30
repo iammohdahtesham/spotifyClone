@@ -12,7 +12,6 @@ import {
   Platform,
   FlatList,
   Image,
-  Pressable,
 } from 'react-native';
 import {Colors} from '../../assets/colors';
 import {RecentSVG, SettingsSVG, BellSVG} from '../../assets/svgs';
@@ -43,13 +42,11 @@ const Home = ({token}) => {
       .request(config)
       .then(response => {
         setData(response.data.categories.items);
-        console.log(newData);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
-
   return (
     <ImageBackground
       source={backgroundImage}
@@ -62,33 +59,57 @@ const Home = ({token}) => {
               <Text style={styles.heading}>Good {timeOfDay()}</Text>
             </View>
             <View style={styles.headerIcons}>
-              <BellSVG color={Colors.white} height={30} width={30} />
-              <RecentSVG color={Colors.white} height={30} width={30} />
-              <SettingsSVG color={Colors.white} height={30} width={30} />
+              <BellSVG color={Colors.white} height={25} width={25} />
+              <RecentSVG color={Colors.white} height={25} width={25} />
+              <SettingsSVG color={Colors.white} height={25} width={25} />
             </View>
           </View>
           <View style={styles.buttonsContainer}>
             <TouchableOpacity style={styles.buttons}>
-              <Text>Press here</Text>
+              <Image
+                source={{uri: SampleSongs[0].artwork}}
+                style={styles.buttonImage}
+              />
+              <Text style={styles.buttonText}>{SampleSongs[0].title}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttons}>
-              <Text>Press here</Text>
+              <Image
+                source={{uri: SampleSongs[1].artwork}}
+                style={styles.buttonImage}
+              />
+              <Text style={styles.buttonText}>{SampleSongs[1].title}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonsContainer}>
             <TouchableOpacity style={styles.buttons}>
-              <Text>Press here</Text>
+              <Image
+                source={{uri: SampleSongs[2].artwork}}
+                style={styles.buttonImage}
+              />
+              <Text style={styles.buttonText}>{SampleSongs[2].title}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttons}>
-              <Text>Press here</Text>
+              <Image
+                source={{uri: SampleSongs[3].artwork}}
+                style={styles.buttonImage}
+              />
+              <Text style={styles.buttonText}>{SampleSongs[3].title}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonsContainer}>
             <TouchableOpacity style={styles.buttons}>
-              <Text>Press here</Text>
+              <Image
+                source={{uri: SampleSongs[4].artwork}}
+                style={styles.buttonImage}
+              />
+              <Text style={styles.buttonText}>{SampleSongs[4].title}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttons}>
-              <Text>Press here</Text>
+              <Image
+                source={{uri: SampleSongs[5].artwork}}
+                style={styles.buttonImage}
+              />
+              <Text style={styles.buttonText}>{SampleSongs[5].title}</Text>
             </TouchableOpacity>
           </View>
 
@@ -97,7 +118,6 @@ const Home = ({token}) => {
           </View>
           <FlatList
             horizontal
-            inverted
             data={newData}
             keyExtractor={item => item.id}
             renderItem={({item}) => {
@@ -191,12 +211,24 @@ const styles = StyleSheet.create({
     height: Dimensions.get('screen').height * 0.07,
   },
   buttons: {
-    width: '45%',
-    height: '100%',
+    flexDirection: 'row',
+    width: Dimensions.get('screen').width * 0.45,
+    height: Dimensions.get('screen').height * 0.07,
     borderRadius: 5,
-    justifyContent: 'center',
+    alignItems: 'center',
     button: 'center',
     backgroundColor: Colors.button,
+  },
+  buttonImage: {
+    height: '100%',
+    width: Dimensions.get('screen').height > 700 ? '33%' : '27%',
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  buttonText: {
+    color: Colors.white,
+    fontWeight: '600',
+    marginLeft: 5,
   },
   trendingSection: {
     marginLeft: Dimensions.get('screen').width * 0.03,
@@ -207,10 +239,7 @@ const styles = StyleSheet.create({
   },
   listImage: {
     height: Dimensions.get('screen').height * 0.19,
-    width:
-      Platform.OS != 'android'
-        ? Dimensions.get('screen').width * 0.34
-        : Dimensions.get('screen').width * 0.43,
+    width: Dimensions.get('screen').height * 0.19,
     borderRadius: 3,
     margin: Dimensions.get('screen').width * 0.02,
   },
